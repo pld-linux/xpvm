@@ -2,7 +2,7 @@ Summary:	TCL/TK graphical frontend to monitor and manage a PVM cluster
 Summary(pl):	Graficzny frontend TCL/TK do monitorowania i zarz±dzania klastrem PVM
 Name:		xpvm
 Version:	1.2.5
-Release:	6
+Release:	7
 License:	Free
 Group:		X11/Development/Tools
 Source0:	http://www.netlib.org/pvm3/xpvm/XPVM.src.%{version}.tgz
@@ -42,7 +42,8 @@ XPCFLOPTS="%{rpmcflags} -DXPVMROOT=\\\"%{_xpvm_root}\\\""
 
 XPVM_ROOT=`pwd` \
 %{__make} \
-	CFLOPTS="$XPCFLOPTS"
+	CFLOPTS="$XPCFLOPTS" \
+	XLIBDIR="-L/usr/X11R6/%{_lib}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -51,13 +52,16 @@ install -d $RPM_BUILD_ROOT{%{_xpvm_root},%{_bindir}}
 %ifarch alpha
 install src/LINUXALPHA/xpvm $RPM_BUILD_ROOT%{_bindir}
 %endif
+%ifarch amd64
+install src/LINUX64/xpvm $RPM_BUILD_ROOT%{_bindir}
+%endif
 %ifarch ppc
 install src/LINUXPPC/xpvm $RPM_BUILD_ROOT%{_bindir}
 %endif
 %ifarch sparc sparc64 sparcv9
 install src/LINUXSPARC/xpvm $RPM_BUILD_ROOT%{_bindir}
 %endif
-%ifnarch alpha ppc sparc sparc64 sparcv9
+%ifnarch alpha amd64 ppc sparc sparc64 sparcv9
 install src/LINUX/xpvm $RPM_BUILD_ROOT%{_bindir}
 %endif
 install *.tcl $RPM_BUILD_ROOT%{_xpvm_root}

@@ -19,7 +19,6 @@ Requires:	pvm
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	pvm-gui
 
-%define		_prefix		/usr/X11R6
 %define 	_xpvm_root	%{_prefix}/share/xpvm
 %define 	_xbindir	%{_prefix}/bin
 

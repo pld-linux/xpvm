@@ -2,7 +2,7 @@ Summary:	TCL/TK graphical frontend to monitor and manage a PVM cluster.
 Name:		xpvm
 Version:	1.2.5
 Release:	2
-Copyright:	free
+License:	Free
 Group:		X11/Development/Libraries
 Group(de):	X11/Entwicklung/Libraries
 Group(pl):	X11/Programowanie/Biblioteki
@@ -10,7 +10,6 @@ Source0:	http://www.netlib.org/pvm3/xpvm/XPVM.src.%{version}.tgz
 Patch0:		%{name}.patch
 Patch1:		%{name}-help-path.patch
 Patch2:		%{name}-noenv.patch
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 BuildRequires:	pvm-devel
 BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	readline-devel
@@ -18,6 +17,7 @@ BuildRequires:	tk-devel
 BuildRequires:	tcl-devel
 BuildRequires:	XFree86-devel
 Requires:	pvm
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	pvm-gui
 
 %define 	_xpvm_root	%{_prefix}/X11R6/share/xpvm

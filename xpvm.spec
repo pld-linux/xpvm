@@ -10,18 +10,17 @@ Source0:	http://www.netlib.org/pvm3/xpvm/XPVM.src.%{version}.tgz
 Patch0:		%{name}.patch
 Patch1:		%{name}-help-path.patch
 Patch2:		%{name}-noenv.patch
-BuildRequires:	pvm-devel
-BuildRequires:	ncurses-devel >= 5.0
-BuildRequires:	readline-devel
-BuildRequires:	tk-devel
-BuildRequires:	tcl-devel
 BuildRequires:	XFree86-devel
+BuildRequires:	ncurses-devel >= 5.0
+BuildRequires:	pvm-devel
+BuildRequires:	readline-devel
+BuildRequires:	tcl-devel
+BuildRequires:	tk-devel
 Requires:	pvm
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	pvm-gui
 
-%define 	_xpvm_root	%{_prefix}/share/xpvm
-%define 	_xbindir	%{_prefix}/bin
+%define 	_xpvm_root	%{_datadir}/xpvm
 
 %description
 Xpvm is a TCL/TK based tool that allows full manageability of the PVM
@@ -40,23 +39,25 @@ PVM, a tak¿e monitorowaæ jego wydajno¶æ.
 %build
 XPCFLOPTS="%{rpmcflags} -DXPVMROOT=\\\"%{_xpvm_root}\\\""
 
-XPVM_ROOT=`pwd` %{__make} CFLOPTS="$XPCFLOPTS"
+XPVM_ROOT=`pwd` \
+%{__make} \
+	CFLOPTS="$XPCFLOPTS"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_xpvm_root} $RPM_BUILD_ROOT%{_xbindir}
+install -d $RPM_BUILD_ROOT{%{_xpvm_root},%{_bindir}}
 
 %ifarch alpha
-install src/LINUXALPHA/xpvm $RPM_BUILD_ROOT%{_xbindir}
+install src/LINUXALPHA/xpvm $RPM_BUILD_ROOT%{_bindir}
 %endif
 %ifarch ppc
-install src/LINUXPPC/xpvm $RPM_BUILD_ROOT%{_xbindir}
+install src/LINUXPPC/xpvm $RPM_BUILD_ROOT%{_bindir}
 %endif
 %ifarch sparc sparc64 sparcv9
-install src/LINUXSPARC/xpvm $RPM_BUILD_ROOT%{_xbindir}
+install src/LINUXSPARC/xpvm $RPM_BUILD_ROOT%{_bindir}
 %endif
 %ifnarch alpha ppc sparc sparc64 sparcv9
-install src/LINUX/xpvm $RPM_BUILD_ROOT%{_xbindir}
+install src/LINUX/xpvm $RPM_BUILD_ROOT%{_bindir}
 %endif
 install *.tcl $RPM_BUILD_ROOT%{_xpvm_root}
 sed -e "s!@XPVMROOT@!%{_xpvm_root}!" xpvm.tcl >$RPM_BUILD_ROOT%{_xpvm_root}/xpvm.tcl
@@ -68,5 +69,5 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_xbindir}/xpvm
+%attr(755,root,root) %{_bindir}/xpvm
 %{_xpvm_root}

@@ -47,9 +47,13 @@ XPVM_ROOT=`pwd` %{__make} CFLOPTS="$XPCFLOPTS"
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_xpvm_root} $RPM_BUILD_ROOT%{_xbindir}
 
+%ifarch alpha
+install src/LINUXALPHA/xpvm $RPM_BUILD_ROOT%{_xbindir}
+%endif
 %ifarch ppc
 install src/LINUXPPC/xpvm $RPM_BUILD_ROOT%{_xbindir}
-%else
+%endif
+%ifnarch alpha ppc
 install src/LINUX/xpvm $RPM_BUILD_ROOT%{_xbindir}
 %endif
 install *.tcl $RPM_BUILD_ROOT%{_xpvm_root}

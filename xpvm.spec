@@ -31,7 +31,7 @@ cluster as well as the ability to monitor cluster performance.
 Xpvm to bazuj±ce na TCL/TK narzêdzie pozwalaj±ce zarz±dzaæ klastrem
 PVM, a tak¿e monitorowaæ jego wydajno¶æ.
 
-%prep 
+%prep
 %setup -q -n xpvm
 %patch0 -p1
 %patch1 -p1

@@ -10,6 +10,7 @@ Source0:	http://www.netlib.org/pvm3/xpvm/XPVM.src.%{version}.tgz
 Patch0:		%{name}.patch
 Patch1:		%{name}-help-path.patch
 Patch2:		%{name}-noenv.patch
+URL:		http://www.netlib.org/pvm3/xpvm/
 BuildRequires:	XFree86-devel
 BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	pvm-devel

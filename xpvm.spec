@@ -32,7 +32,7 @@ as well as the ability to monitor cluster performance.
 %patch2 -p1
 
 %build
-XPCFLOPTS="%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS}"
+XPCFLOPTS="%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS}"
 XPCFLOPTS="$XPCFLOPTS -DXPVMROOT=\\\"%{_xpvm_root}\\\""
 
 XPVM_ROOT=`pwd` make CFLOPTS="$XPCFLOPTS"

@@ -1,11 +1,13 @@
-Summary:	TCL/TK graphical frontend to monitor and manage a PVM cluster.
+Summary:	TCL/TK graphical frontend to monitor and manage a PVM cluster
+Summary(pl):	Graficzny frontend TCL/TK do monitorowania i zarz±dzania klastrem PVM
 Name:		xpvm
 Version:	1.2.5
-Release:	2
+Release:	3
 License:	Free
-Group:		X11/Development/Libraries
-Group(de):	X11/Entwicklung/Libraries
-Group(pl):	X11/Programowanie/Biblioteki
+Group:		X11/Development/Tools
+Group(de):	X11/Entwicklung/Werkzeuge
+Group(fr):	X11/Development/Outils
+Group(pl):	X11/Programowanie/Narzêdzia
 Source0:	http://www.netlib.org/pvm3/xpvm/XPVM.src.%{version}.tgz
 Patch0:		%{name}.patch
 Patch1:		%{name}-help-path.patch
@@ -20,12 +22,17 @@ Requires:	pvm
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	pvm-gui
 
-%define 	_xpvm_root	%{_prefix}/X11R6/share/xpvm
-%define 	_xbindir	%{_prefix}/X11R6/bin
+%define		_prefix		/usr/X11R6
+%define 	_xpvm_root	%{_prefix}/share/xpvm
+%define 	_xbindir	%{_prefix}/bin
 
 %description
 Xpvm is a TCL/TK based tool that allows full manageability of the PVM
 cluster as well as the ability to monitor cluster performance.
+
+%description -l pl
+Xpvm to bazuj±ce na TCL/TK narzêdzie pozwalaj±ce zarz±dzaæ klastrem
+PVM, a tak¿e monitorowaæ jego wydajno¶æ.
 
 %prep 
 %setup -q -n xpvm
@@ -36,14 +43,12 @@ cluster as well as the ability to monitor cluster performance.
 %build
 XPCFLOPTS="%{rpmcflags} -DXPVMROOT=\\\"%{_xpvm_root}\\\""
 
-XPVM_ROOT=`pwd` make CFLOPTS="$XPCFLOPTS"
+XPVM_ROOT=`pwd` %{__make} CFLOPTS="$XPCFLOPTS"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 install -d $RPM_BUILD_ROOT%{_xpvm_root} $RPM_BUILD_ROOT%{_xbindir}
 
-# xpvm
 install src/LINUX/xpvm $RPM_BUILD_ROOT%{_xbindir}
 install *.tcl $RPM_BUILD_ROOT%{_xpvm_root}
 sed -e "s!@XPVMROOT@!%{_xpvm_root}!" xpvm.tcl >$RPM_BUILD_ROOT%{_xpvm_root}/xpvm.tcl

@@ -2,7 +2,7 @@ Summary:	TCL/TK graphical frontend to monitor and manage a PVM cluster
 Summary(pl):	Graficzny frontend TCL/TK do monitorowania i zarz±dzania klastrem PVM
 Name:		xpvm
 Version:	1.2.5
-Release:	3
+Release:	4
 License:	Free
 Group:		X11/Development/Tools
 Source0:	http://www.netlib.org/pvm3/xpvm/XPVM.src.%{version}.tgz

@@ -6,6 +6,7 @@ Release:	4
 License:	Free
 Group:		X11/Development/Tools
 Source0:	http://www.netlib.org/pvm3/xpvm/XPVM.src.%{version}.tgz
+# Source0-md5:	7b20143cb2ff61e3cb28baf8f9cb2770
 Patch0:		%{name}.patch
 Patch1:		%{name}-help-path.patch
 Patch2:		%{name}-noenv.patch

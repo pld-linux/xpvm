@@ -52,7 +52,10 @@ install src/LINUXALPHA/xpvm $RPM_BUILD_ROOT%{_xbindir}
 %ifarch ppc
 install src/LINUXPPC/xpvm $RPM_BUILD_ROOT%{_xbindir}
 %endif
-%ifnarch alpha ppc
+%ifarch sparc sparc64 sparcv9
+install src/LINUXSPARC/xpvm $RPM_BUILD_ROOT%{_xbindir}
+%endif
+%ifnarch alpha ppc sparc sparc64 sparcv9
 install src/LINUX/xpvm $RPM_BUILD_ROOT%{_xbindir}
 %endif
 install *.tcl $RPM_BUILD_ROOT%{_xpvm_root}

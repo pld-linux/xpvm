@@ -1,0 +1,292 @@
+diff -Nur xpvm.pre/Makefile xpvm/Makefile
+--- xpvm.pre/Makefile	Thu Apr  9 23:11:23 1998
++++ xpvm/Makefile	Tue Dec 26 17:05:43 2000
+@@ -3,22 +3,22 @@
+ #
+ 
+ install:
+-	cd src ; $(PVM_ROOT)/lib/aimk install
++	cd src ; aimk install
+ 
+ winstall:
+-	cd src ; $(PVM_ROOT)/lib/aimk winstall
++	cd src ; aimk winstall
+ 
+ arch_install:
+-	cd src ; $(PVM_ROOT)/lib/aimk tcls
++	cd src ; aimk tcls
+ 
+ again:
+-	cd src ; $(PVM_ROOT)/lib/aimk again
++	cd src ; aimk again
+ 
+ clean:
+-	cd src ; $(PVM_ROOT)/lib/aimk clean
+-	cd tracer ; $(PVM_ROOT)/lib/aimk clean
++	cd src ; aimk clean
++	cd tracer ; aimk clean
+ 
+ veryclean:
+-	cd src ; $(PVM_ROOT)/lib/aimk veryclean
+-	cd tracer ; $(PVM_ROOT)/lib/aimk veryclean
++	cd src ; aimk veryclean
++	cd tracer ; aimk veryclean
+ 
+diff -Nur xpvm.pre/src/Makefile xpvm/src/Makefile
+--- xpvm.pre/src/Makefile	Thu Apr  9 23:11:20 1998
++++ xpvm/src/Makefile	Tue Dec 26 17:05:43 2000
+@@ -5,29 +5,26 @@
+ default: local
+ 
+ install:
+-	$(PVM_ROOT)/lib/aimk install
+-	@ ctags -w *.c *.h &
++	aimk install
+ 
+ winstall:
+-	$(PVM_ROOT)/lib/aimk winstall
+-	@ ctags -w *.c *.h &
++	aimk winstall
+ 
+ local:
+-	$(PVM_ROOT)/lib/aimk local
+-	@ ctags -w *.c *.h &
++	aimk local
+ 
+ objs:
+-	$(PVM_ROOT)/lib/aimk objs
++	aimk objs
+ 
+ tcls:
+-	$(PVM_ROOT)/lib/aimk tcls
++	aimk tcls
+ 
+ again:
+-	$(PVM_ROOT)/lib/aimk again
++	aimk again
+ 
+ clean:
+-	$(PVM_ROOT)/lib/aimk clean
++	aimk clean
+ 
+ veryclean:
+-	$(PVM_ROOT)/lib/aimk veryclean
++	aimk veryclean
+ 
+diff -Nur xpvm.pre/src/Makefile.aimk xpvm/src/Makefile.aimk
+--- xpvm.pre/src/Makefile.aimk	Tue Dec 26 14:01:09 2000
++++ xpvm/src/Makefile.aimk	Tue Dec 26 17:08:51 2000
+@@ -31,7 +31,7 @@
+ CFLAGS		=	$(CFLOPTS) $(PVMVERSION) -DIMA_$(PVM_ARCH) $(ARCHCFLAGS)
+ LFLAGS		=	$(ARCHCFLAGS)
+ 
+-AIMK		=	$(PVM_ROOT)/lib/aimk
++AIMK		=	aimk
+ 
+ 
+ #
+@@ -116,7 +116,7 @@
+ # Libraries
+ #
+ 
+-PVMLIBDIR	=	-L$(PVM_ROOT)/lib/$(PVM_ARCH)
++PVMLIBDIR	=	-L/usr/lib
+ 
+ TRCLIBDIR	=	-L$(TRCDIR)/$(PVM_ARCH)
+ 
+@@ -137,7 +137,7 @@
+ # Include Directories
+ #
+ 
+-PVMINCL		=	-I$(PVM_ROOT)/include
++PVMINCL		=	-I/usr/include
+ 
+ TRCINCL		=	-I$(TRCDIR)
+ 
+@@ -158,8 +158,8 @@
+ HEADERS		=	$(SRCDIR)/Makefile.aimk $(SRCDIR)/xpvm.h \
+ 				$(SRCDIR)/globals.h $(SRCDIR)/const.h \
+ 				$(SRCDIR)/trace.h $(SRCDIR)/compat.pvmtev.h \
+-				$(PVM_ROOT)/include/pvm3.h \
+-				$(PVM_ROOT)/include/pvmtev.h \
++				/usr/include/pvm3.h \
++				/usr/include/pvmtev.h \
+ 				$(TRCDIR)/trcdef.h $(TRCDIR)/trctype.h \
+ 				$(TRCDIR)/trcproto.h $(TRCDIR)/trccompat.h
+ 
+@@ -171,7 +171,6 @@
+ default:  local
+ 
+ install:  trclib xpvm tcls
+-	@ cp xpvm $(PVM_ROOT)/bin/$(PVM_ARCH)
+ 
+ winstall:  trclib xpvm.exe tcls
+ 	@ cp xpvm.exe $(PVM_ROOT)/bin/$(PVM_ARCH)
+diff -Nur xpvm.pre/src/Makefile.xpvm xpvm/src/Makefile.xpvm
+--- xpvm.pre/src/Makefile.xpvm	Thu Apr  9 23:11:23 1998
++++ xpvm/src/Makefile.xpvm	Tue Dec 26 17:05:43 2000
+@@ -3,22 +3,22 @@
+ #
+ 
+ install:
+-	cd src ; $(PVM_ROOT)/lib/aimk install
++	cd src ; aimk install
+ 
+ winstall:
+-	cd src ; $(PVM_ROOT)/lib/aimk winstall
++	cd src ; aimk winstall
+ 
+ arch_install:
+-	cd src ; $(PVM_ROOT)/lib/aimk tcls
++	cd src ; aimk tcls
+ 
+ again:
+-	cd src ; $(PVM_ROOT)/lib/aimk again
++	cd src ; aimk again
+ 
+ clean:
+-	cd src ; $(PVM_ROOT)/lib/aimk clean
+-	cd tracer ; $(PVM_ROOT)/lib/aimk clean
++	cd src ; aimk clean
++	cd tracer ; aimk clean
+ 
+ veryclean:
+-	cd src ; $(PVM_ROOT)/lib/aimk veryclean
+-	cd tracer ; $(PVM_ROOT)/lib/aimk veryclean
++	cd src ; aimk veryclean
++	cd tracer ; aimk veryclean
+ 
+diff -Nur xpvm.pre/src/xpvm.c xpvm/src/xpvm.c
+--- xpvm.pre/src/xpvm.c	Thu Apr  9 23:12:11 1998
++++ xpvm/src/xpvm.c	Tue Dec 26 17:05:43 2000
+@@ -406,7 +406,7 @@
+ 
+ 	/* Get XPVM Main Directory */
+ 
+-	xpvm_dir = getenv("XPVM_ROOT");
++	xpvm_dir = XPVMROOT;
+ 
+ 	if ( xpvm_dir == NULL )
+ 	{
+diff -Nur xpvm.pre/src/xpvm.tcl xpvm/src/xpvm.tcl
+--- xpvm.pre/src/xpvm.tcl	Tue Dec 26 14:01:09 2000
++++ xpvm/src/xpvm.tcl	Tue Dec 26 17:05:43 2000
+@@ -41,18 +41,7 @@
+ # Setup Main TCL Directories
+ #
+ 
+-set ckenv [ info exists env(XPVM_ROOT) ]
+-
+-if { $ckenv == 1 } \
+-	{ set xpvm_directory $env(XPVM_ROOT) } \
+-\
+-else \
+-{
+-	set home	[ glob ~ ]
+-	set def		[ get_xpvm_default_dir ]
+-
+-	set xpvm_directory "$home/$def"
+-}
++set xpvm_directory "@XPVMROOT@"
+ 
+ set help_dir $xpvm_directory/help
+ 
+diff -Nur xpvm.pre/tracer/Makefile xpvm/tracer/Makefile
+--- xpvm.pre/tracer/Makefile	Fri Aug 29 17:21:32 1997
++++ xpvm/tracer/Makefile	Tue Dec 26 17:05:43 2000
+@@ -2,32 +2,28 @@
+ # $Id$
+ #
+ 
+-PVMDIR		=	$(PVM_ROOT)
+-
+ #CC			=	cc
+ #CFLOPTS	=	-g
+ 
+-PVMOPTS		=	CC=$(CC) CFLOPTS=$(CFLOPTS) PVMDIR=$(PVMDIR)
++PVMOPTS		=	CC=$(CC) CFLOPTS=$(CFLOPTS)
+ 
+ default: local
+ 
+ install:
+-	$(PVMDIR)/lib/aimk $(PVMOPTS) install
+-	@ ctags -w *.c *.h &
++	aimk $(PVMOPTS) install
+ 
+ local:
+-	$(PVMDIR)/lib/aimk $(PVMOPTS) local
+-	@ ctags -w *.c *.h &
++	aimk $(PVMOPTS) local
+ 
+ objs:
+-	$(PVMDIR)/lib/aimk $(PVMOPTS) objs
++	aimk $(PVMOPTS) objs
+ 
+ again:
+-	$(PVMDIR)/lib/aimk $(PVMOPTS) again
++	aimk $(PVMOPTS) again
+ 
+ clean:
+-	$(PVMDIR)/lib/aimk clean
++	aimk clean
+ 
+ veryclean:
+-	$(PVMDIR)/lib/aimk veryclean
++	aimk veryclean
+ 
+diff -Nur xpvm.pre/tracer/Makefile.aimk xpvm/tracer/Makefile.aimk
+--- xpvm.pre/tracer/Makefile.aimk	Thu Apr  9 22:40:22 1998
++++ xpvm/tracer/Makefile.aimk	Tue Dec 26 17:05:43 2000
+@@ -30,24 +30,23 @@
+ #
+ 
+ #PVMDIR		=	../..
+-PVMDIR		=	$(PVM_ROOT)
+ 
+ #TRCDIR		=	$(PVMDIR)/tracer
+ TRCDIR		=	$(XPVM_ROOT)/tracer
+ 
+ SRCDIR		=	$(TRCDIR)
+ 
+-PVMBDIR		=	$(PVMDIR)/bin
+-PVMXDIR		=	$(PVMBDIR)/$(PVM_ARCH)
++PVMBDIR		=	/usr/bin
++PVMXDIR		=	/usr/bin
+ 
+-PVMLDIR		=	$(PVMDIR)/lib/$(PVM_ARCH)
++PVMLDIR		=	/usr/lib
+ 
+ 
+ #
+ # Libraries
+ #
+ 
+-PVMLIBDIR	=	-L$(PVMDIR)/lib/$(PVM_ARCH)
++PVMLIBDIR	=	-L/usr/lib
+ 
+ TRCLIBDIR	=	-L$(TRCDIR)/$(PVM_ARCH)
+ 
+@@ -71,7 +70,7 @@
+ # Include Directories
+ #
+ 
+-PVMINCL		=	-I$(PVMDIR)/include
++PVMINCL		=	/usr/include
+ 
+ TRCINCL		=	-I$(TRCDIR)
+ 
+@@ -90,12 +89,12 @@
+ HEADERS		=	$(SRCDIR)/tracer.h $(SRCDIR)/trcglob.h \
+ 				$(TRCDIR)/trcdef.h $(TRCDIR)/trctype.h \
+ 				$(TRCDIR)/trcproto.h \
+-				$(PVMDIR)/include/pvm3.h $(PVMDIR)/include/pvmtev.h
++				/usr/include/pvm3.h /usr/include/pvmtev.h
+ 
+ TRCHEADERS	=	$(TRCDIR)/trclib.h $(TRCDIR)/trctype.h \
+ 				$(TRCDIR)/trcproto.h \
+ 				$(TRCDIR)/trccompat.h $(TRCDIR)/trccompatrev.h \
+-				$(PVMDIR)/include/pvm3.h $(PVMDIR)/include/pvmtev.h
++				/usr/include/pvm3.h /usr/include/pvmtev.h
+ 
+ PROGS		=	$(PVMXDIR)/tracer$(EXESFX) $(PVMXDIR)/trcsort$(EXESFX)
+ 

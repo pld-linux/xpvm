@@ -1,13 +1,15 @@
 Summary:	TCL/TK graphical frontend to monitor and manage a PVM cluster.
 Name:		xpvm
 Version:	1.2.5
-Release:	1
+Release:	2
 Copyright:	free
 Group:		X11/Development/Libraries
+Group(de):	X11/Entwicklung/Libraries
+Group(pl):	X11/Programowanie/Biblioteki
 Source0:	http://www.netlib.org/pvm3/xpvm/XPVM.src.%{version}.tgz
-Patch0:		xpvm.patch
-Patch1:		xpvm-help-path.patch
-Patch2:		xpvm-noenv.patch
+Patch0:		%{name}.patch
+Patch1:		%{name}-help-path.patch
+Patch2:		%{name}-noenv.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 BuildRequires:	pvm-devel
 BuildRequires:	ncurses-devel >= 5.0
@@ -18,12 +20,12 @@ BuildRequires:	XFree86-devel
 Requires:	pvm
 Obsoletes:	pvm-gui
 
-%define _xpvm_root	%{_prefix}/X11R6/share/xpvm
-%define _xbindir	%{_prefix}/X11R6/bin
+%define 	_xpvm_root	%{_prefix}/X11R6/share/xpvm
+%define 	_xbindir	%{_prefix}/X11R6/bin
 
 %description
-Xpvm is a TCL/TK based tool that allows full manageability of the PVM cluster
-as well as the ability to monitor cluster performance.
+Xpvm is a TCL/TK based tool that allows full manageability of the PVM
+cluster as well as the ability to monitor cluster performance.
 
 %prep 
 %setup -q -n xpvm
@@ -32,8 +34,7 @@ as well as the ability to monitor cluster performance.
 %patch2 -p1
 
 %build
-XPCFLOPTS="%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS}"
-XPCFLOPTS="$XPCFLOPTS -DXPVMROOT=\\\"%{_xpvm_root}\\\""
+XPCFLOPTS="%{rpmcflags} -DXPVMROOT=\\\"%{_xpvm_root}\\\""
 
 XPVM_ROOT=`pwd` make CFLOPTS="$XPCFLOPTS"
 

@@ -5,9 +5,6 @@ Version:	1.2.5
 Release:	3
 License:	Free
 Group:		X11/Development/Tools
-Group(de):	X11/Entwicklung/Werkzeuge
-Group(fr):	X11/Development/Outils
-Group(pl):	X11/Programowanie/Narzêdzia
 Source0:	http://www.netlib.org/pvm3/xpvm/XPVM.src.%{version}.tgz
 Patch0:		%{name}.patch
 Patch1:		%{name}-help-path.patch

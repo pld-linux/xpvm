@@ -15,11 +15,12 @@ BuildRequires:	XFree86-devel
 BuildRequires:	ncurses-devel >= 5.0
 BuildRequires:	pvm-devel
 BuildRequires:	readline-devel
+BuildRequires:	rpmbuild(macros) >= 1.213
 BuildRequires:	tcl-devel
 BuildRequires:	tk-devel
 Requires:	pvm
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	pvm-gui
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define 	_xpvm_root	%{_datadir}/xpvm
 
@@ -52,7 +53,7 @@ install -d $RPM_BUILD_ROOT{%{_xpvm_root},%{_bindir}}
 %ifarch alpha
 install src/LINUXALPHA/xpvm $RPM_BUILD_ROOT%{_bindir}
 %endif
-%ifarch amd64
+%ifarch %{x8664}
 install src/LINUX64/xpvm $RPM_BUILD_ROOT%{_bindir}
 %endif
 %ifarch ppc
@@ -61,7 +62,7 @@ install src/LINUXPPC/xpvm $RPM_BUILD_ROOT%{_bindir}
 %ifarch sparc sparc64 sparcv9
 install src/LINUXSPARC/xpvm $RPM_BUILD_ROOT%{_bindir}
 %endif
-%ifnarch alpha amd64 ppc sparc sparc64 sparcv9
+%ifnarch alpha %{x8664} ppc sparc sparc64 sparcv9
 install src/LINUX/xpvm $RPM_BUILD_ROOT%{_bindir}
 %endif
 install *.tcl $RPM_BUILD_ROOT%{_xpvm_root}

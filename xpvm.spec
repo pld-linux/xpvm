@@ -1,5 +1,5 @@
 Summary:	Tcl/Tk graphical frontend to monitor and manage a PVM cluster
-Summary(pl):	Graficzny frontend Tcl/Tk do monitorowania i zarz±dzania klastrem PVM
+Summary(pl.UTF-8):   Graficzny frontend Tcl/Tk do monitorowania i zarzÄ…dzania klastrem PVM
 Name:		xpvm
 Version:	1.2.5
 Release:	7
@@ -28,9 +28,9 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Xpvm is a Tcl/Tk based tool that allows full manageability of the PVM
 cluster as well as the ability to monitor cluster performance.
 
-%description -l pl
-Xpvm to bazuj±ce na Tcl/Tk narzêdzie pozwalaj±ce zarz±dzaæ klastrem
-PVM, a tak¿e monitorowaæ jego wydajno¶æ.
+%description -l pl.UTF-8
+Xpvm to bazujÄ…ce na Tcl/Tk narzÄ™dzie pozwalajÄ…ce zarzÄ…dzaÄ‡ klastrem
+PVM, a takÅ¼e monitorowaÄ‡ jego wydajnoÅ›Ä‡.
 
 %prep
 %setup -q -n xpvm

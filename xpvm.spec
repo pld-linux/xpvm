@@ -1,5 +1,5 @@
 Summary:	Tcl/Tk graphical frontend to monitor and manage a PVM cluster
-Summary(pl.UTF-8):   Graficzny frontend Tcl/Tk do monitorowania i zarządzania klastrem PVM
+Summary(pl.UTF-8):	Graficzny frontend Tcl/Tk do monitorowania i zarządzania klastrem PVM
 Name:		xpvm
 Version:	1.2.5
 Release:	7
